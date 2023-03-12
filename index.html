@@ -1,90 +1,100 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Analog Clock</title>
-    <style>
-        canvas {
-            border: 2px solid black;
-            border-radius: 50%;
-        }
-    </style>
-</head>
-<body>
-    <canvas id="clock" width="200" height="200"></canvas>
-    <script>
-        function drawClock() {
-            // Get the current time
-            var now = new Date();
-            var hour = now.getHours();
-            var minute = now.getMinutes();
-            var second = now.getSeconds();
+	<head>
+		<title>Analog Clock</title>
+		<style>
+			canvas {
+				border: 2px solid black;
+				border-radius: 50%;
+			}
+		</style>
+	</head>
 
-            // Get the canvas element
-            var canvas = document.getElementById("clock");
-            var context = canvas.getContext("2d");
+	<body>
+		<canvas id="clock" width="200" height="200"></canvas>
+		<script>
+			function drawClock() {
+				// Get the current time
+				const now = new Date();
+				const hour = now.getHours();
+				const minute = now.getMinutes();
+				const second = now.getSeconds();
 
-            // Calculate the angle for each hand
-            var hourAngle = (hour % 12) * 30 + minute / 2;
-            var minuteAngle = minute * 6;
-            var secondAngle = second * 6;
+				// Get the canvas element
+				const canvas = document.getElementById("clock");
+				const context = canvas.getContext("2d");
 
-            // Draw the clock face
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            context.beginPath();
-            context.arc(100, 100, 90, 0, 2*Math.PI);
-            context.strokeStyle = "black";
-            context.lineWidth = 4;
-            context.stroke();
+				// Calculate the angle for each hand
+				const hourAngle = (hour % 12) * 30 + minute / 2;
+				const minuteAngle = minute * 6;
+				const secondAngle = second * 6;
 
-            // Draw the hour marks
-            for (var i = 1; i <= 12; i++) {
-                var angle = i * 30;
-                var x1 = 100 + 80 * Math.sin(angle * Math.PI / 180);
-                var y1 = 100 - 80 * Math.cos(angle * Math.PI / 180);
-                var x2 = 100 + 60 * Math.sin(angle * Math.PI / 180);
-                var y2 = 100 - 60 * Math.cos(angle * Math.PI / 180);
-                context.beginPath();
-                context.moveTo(x1, y1);
-                context.lineTo(x2, y2);
-                context.strokeStyle = "red";
-                context.lineWidth = 2;
-                context.stroke();
-                context.font = "14px Arial";
-                context.fillStyle = "black";
-                context.textAlign = "center";
-                context.textBaseline = "middle";
-                context.fillText(i.toString(), x2, y2);
-            }
+				// Draw the clock face
+				context.clearRect(0, 0, canvas.width, canvas.height);
+				context.beginPath();
+				context.arc(100, 100, 90, 0, 2 * Math.PI);
+				context.strokeStyle = "black";
+				context.lineWidth = 4;
+				context.stroke();
 
-            // Draw the hour hand
-            context.beginPath();
-            context.moveTo(100, 100);
-            context.lineTo(100 + 50*Math.sin(hourAngle*Math.PI/180), 100 - 50*Math.cos(hourAngle*Math.PI/180));
-            context.strokeStyle = "black";
-            context.lineWidth = 6;
-            context.lineCap = "round";
-            context.stroke();
+				// Draw the hour marks
+				for (let i = 1; i <= 12; i++) {
+					const angle = i * 30;
+					const x1 = 100 + 70 * Math.sin((angle * Math.PI) / 180);
+					const y1 = 100 - 70 * Math.cos((angle * Math.PI) / 180);
+					const x2 = 100 + 50 * Math.sin((angle * Math.PI) / 180);
+					const y2 = 100 - 50 * Math.cos((angle * Math.PI) / 180);
+					context.beginPath();
+					context.moveTo(x1, y1);
+					context.lineTo(x2, y2);
+					context.strokeStyle = "rgba(255, 0, 0, 0.5)";
+					context.lineWidth = 1.5;
+					context.stroke();
+					context.font = "14px Arial";
+					context.fillStyle = "black";
+					context.textAlign = "center";
+					context.textBaseline = "middle";
+					context.fillText(i.toString(), x2, y2);
+				}
 
-            // Draw the minute hand
-            context.beginPath();
-            context.moveTo(100, 100);
-            context.lineTo(100 + 70*Math.sin(minuteAngle*Math.PI/180), 100 - 70*Math.cos(minuteAngle*Math.PI/180));
-            context.strokeStyle = "black";
-            context.lineWidth = 4;
-            context.lineCap = "round";
-            context.stroke();
+				// Draw the hour hand
+				context.beginPath();
+				context.moveTo(100, 100);
+				context.lineTo(
+					100 + 50 * Math.sin((hourAngle * Math.PI) / 180),
+					100 - 50 * Math.cos((hourAngle * Math.PI) / 180)
+				);
+				context.strokeStyle = "black";
+				context.lineWidth = 6;
+				context.lineCap = "round";
+				context.stroke();
 
-            // Draw the second hand
-            context.beginPath();
-            context.moveTo(100, 100);
-            context.lineTo(100 + 80*Math.sin(secondAngle*Math.PI/180), 100 - 80*Math.cos(secondAngle*Math.PI/180));
-            context.strokeStyle = "red";
-            context.lineWidth = 2;
-            context.lineCap = "round";
-            context.stroke();
-        }
+				// Draw the minute hand
+				context.beginPath();
+				context.moveTo(100, 100);
+				context.lineTo(
+					100 + 70 * Math.sin((minuteAngle * Math.PI) / 180),
+					100 - 70 * Math.cos((minuteAngle * Math.PI) / 180)
+				);
+				context.strokeStyle = "black";
+				context.lineWidth = 4;
+				context.lineCap = "round";
+				context.stroke();
 
-        setInterval(drawClock, 1000);
-    </script>
-</body>
+				// Draw the second hand
+				context.beginPath();
+				context.moveTo(100, 100);
+				context.lineTo(
+					100 + 80 * Math.sin((secondAngle * Math.PI) / 180),
+					100 - 80 * Math.cos((secondAngle * Math.PI) / 180)
+				);
+				context.strokeStyle = "red";
+				context.lineWidth = 2;
+				context.lineCap = "round";
+				context.stroke();
+			}
+
+			setInterval(drawClock, 1000);
+		</script>
+	</body>
 </html>
