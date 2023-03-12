@@ -39,16 +39,19 @@
             // Draw the hour marks
             for (var i = 1; i <= 12; i++) {
                 var angle = i * 30;
-                var x = 100 + 75 * Math.sin(angle * Math.PI / 180);
-                var y = 100 - 75 * Math.cos(angle * Math.PI / 180);
+                var x1 = 100 + 80 * Math.sin(angle * Math.PI / 180);
+                var y1 = 100 - 80 * Math.cos(angle * Math.PI / 180);
+                var x2 = 100 + 70 * Math.sin(angle * Math.PI / 180);
+                var y2 = 100 - 70 * Math.cos(angle * Math.PI / 180);
                 context.beginPath();
-                context.arc(x, y, 5, 0, 2 * Math.PI);
-                context.fillStyle = "black";
-                context.fill();
+                context.moveTo(x1, y1);
+                context.lineTo(x2, y2);
+                context.lineWidth = 4;
+                context.stroke();
                 context.font = "14px Arial";
                 context.textAlign = "center";
                 context.textBaseline = "middle";
-                context.fillText(i.toString(), x, y);
+                context.fillText(i.toString(), x2, y2);
             }
 
             // Draw the hour hand
