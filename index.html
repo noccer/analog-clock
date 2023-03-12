@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analog Clock</title>
+    <style>
+        canvas {
+            border: 2px solid black;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="clock" width="200" height="200"></canvas>
+    <script>
+        function drawClock() {
+            // Get the current time
+            var now = new Date();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+
+            // Get the canvas element
+            var canvas = document.getElementById("clock");
+            var context = canvas.getContext("2d");
+
+            // Calculate the angle for each hand
+            var hourAngle = (hour % 12) * 30 + minute / 2;
+            var minuteAngle = minute * 6;
+            var secondAngle = second * 6;
+
+            // Draw the clock face
+            context.beginPath();
+            context.arc(100, 100, 90, 0, 2*Math.PI);
+            context.strokeStyle = "black";
+            context.lineWidth = 4;
+            context.stroke();
+
+            // Draw the hour hand
+            context.beginPath();
+            context.moveTo(100, 100);
+            context.lineTo(100 + 50*Math.sin(hourAngle*Math.PI/180), 100 - 50*Math.cos(hourAngle*Math.PI/180));
+            context.strokeStyle = "black";
+            context.lineWidth = 6;
+            context.lineCap = "round";
+            context.stroke();
+
+            // Draw the minute hand
+            context.beginPath();
+            context.moveTo(100, 100);
+            context.lineTo(100 + 70*Math.sin(minuteAngle*Math.PI/180), 100 - 70*Math.cos(minuteAngle*Math.PI/180));
+            context.strokeStyle = "black";
+            context.lineWidth = 4;
+            context.lineCap = "round";
+            context.stroke();
+
+            // Draw the second hand
+            context.beginPath();
+            context.moveTo(100, 100);
+            context.lineTo(100 + 80*Math.sin(secondAngle*Math.PI/180), 100 - 80*Math.cos(secondAngle*Math.PI/180));
+            context.strokeStyle = "red";
+            context.lineWidth = 2;
+            context.lineCap = "round";
+            context.stroke();
+        }
+
+        // Update the clock every second
+        setInterval(drawClock, 1000);
+    </script>
+</body>
+</html>
